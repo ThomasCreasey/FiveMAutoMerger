@@ -120,7 +120,7 @@ if (veh1 && veh2) {
     })
 }
 catch {
-    console.log('missing vehicle.meta proceeding without')
+    console.log('Either 1 or all of the vehicle meta files are missing. Proceeding without')
 }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +163,7 @@ if (han1 && han2) {
         })
     }
     catch {
-        console.log('no handling files');
+        console.log('Either 1 or all of the handling files are missing. Proceeding without');
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,20 +203,7 @@ if (carv1 && carv2) {
         })
     }
     catch {
-        try{
-            fs.readFileSync(carv1)
-            console.log('carv 1 good')
-        }
-        catch {
-            console.log('carv 1 fail')
-        }
-        try{
-            fs.readFileSync(carv2)
-            console.log('carv 2 good')
-        }
-        catch {
-            console.log('carv 2 fail')
-        }
+        console.log('Either 1 or all of the carvariation meta files are missing. Proceeding without')
     }
 
 
