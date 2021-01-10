@@ -1,11 +1,11 @@
 # FiveM Auto Merger
 This script will allow you to merge your vehicles / packs together, as long as they follow the template below:
 
-###Folder Layout:
+### Folder Layout:
 - Main Folder - Stream Folder, Meta Files (vehicles.meta, handling.meta, carcols.meta and carvariations.meta)
 - Stream Folder - YFT and YTDs of your vehicle
 
- ###Installation Instructions:
+ ### Installation Instructions:
  1. Ensure you have Node.JS and NPM installed on your machine
  2. Open script.js in a compiler of your choice. I use VS Code.
  3. Run *npm i* or *npm install* in the directory of your installation.
