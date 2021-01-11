@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const { COPYFILE_EXCL } = fs.constants;
+
 const dir1 = './car1';
 const dir2 = './car2';
 const dir3 = './car1/stream';
@@ -27,12 +29,12 @@ if(fs.existsSync(folder)) {
 }
 
 fs.mkdir('./merged', (err) => {
-    if(err) console.log(err);
+    if(err);
 });
 const car1Names = fs.readdirSync(dir3);
 
 fs.mkdir('./merged/stream', (err) => {
-    if(err) console.log(err);
+    if(err);
 });
 const f2 = './merged/stream'
 
@@ -40,9 +42,7 @@ var i;
 for (i=0; i < car1Names.length; i++) {
     const fileExtension = car1Names[i].split('.')[1];
     if(fileExtension === 'ytd' || fileExtension === 'yft') {
-        fs.copyFileSync(`${dir3}/${car1Names[i]}`, `${f2}/${car1Names[i]}`, (err) => {
-            if(err) console.log(err);
-        })
+        fs.copyFileSync(`${dir3}/${car1Names[i]}`, `${f2}/${car1Names[i]}`, COPYFILE_EXCL)
     }
     else {
         console.log(`Skipped file ${car1Names[i]}`)
@@ -57,9 +57,7 @@ var e;
 for (e=0; e < car2Names.length; e++) {
     const fileExtension = car2Names[e].split('.')[1];
     if(fileExtension === 'ytd' || fileExtension === 'yft') {
-        fs.copyFileSync(`${dir4}/${car2Names[e]}`, `${f2}/${car2Names[e]}`, (err) => {
-            if(err) console.log(err);
-        })
+        fs.copyFileSync(`${dir4}/${car2Names[e]}`, `${f2}/${car2Names[e]}`, COPYFILE_EXCL)
     }
     else {
         console.log(`Skipped file ${car2Names[e]}`)
@@ -80,16 +78,12 @@ if (veh1 && veh2) {
     try {
 
     fs.mkdir('./cache', (err) => {
-        if(err) console.log(err);
+        if(err);
     });
 
-    fs.copyFileSync(`${veh1}`, `${folder}/vehicles.meta`, (err) => {
-        if(err) console.log(`${err} 1`);
-    })
+    fs.copyFileSync(`${veh1}`, `${folder}/vehicles.meta`)
 
-    fs.copyFileSync(`${veh1}`, `./cache/vehicle1.txt`, (err) => {
-        if(err) console.log(`${err} 2`);
-    })
+    fs.copyFileSync(`${veh1}`, `./cache/vehicle1.txt`)
 
     const contents = fs.readFileSync(`./cache/vehicle1.txt`).toString();
     let a = contents;
@@ -104,23 +98,17 @@ if (veh1 && veh2) {
     let txt = e.split('<txdRelationships>')[1];
     txt = txt.split('</txdRelationships>')[0];
     e = e.split('</InitDatas>')[0];
-    fs.writeFileSync('./cache/vehicle1.txt', a + e + '</InitDatas>'+ b, (err) => {
-        if(err) console.log(`${err} writing vehicle1`);
-    })
+    fs.writeFileSync('./cache/vehicle1.txt', a + e + '</InitDatas>'+ b)
 
     const ye = fs.readFileSync('./cache/vehicle1.txt').toString();
     let f = ye.split('</txdRelationships>')[0];
 
-    fs.writeFileSync('./cache/vehicle1.txt', f + txt + '</txdRelationships>'+ '\n\n' + '</CVehicleModelInfo__InitDataList>', (err) => {
-        if(err) console.log(`${err} writing txdRelationships`);
-    })
+    fs.writeFileSync('./cache/vehicle1.txt', f + txt + '</txdRelationships>'+ '\n\n' + '</CVehicleModelInfo__InitDataList>')
 
-    fs.writeFileSync('./merged/vehicles.meta', fs.readFileSync('./cache/vehicle1.txt'), (err) => {
-        if(err) console.log(`${err} writing vehicle1.txt`);
-    })
+    fs.writeFileSync('./merged/vehicles.meta', fs.readFileSync('./cache/vehicle1.txt'))
 }
 catch {
-    console.log('Either 1 or all of the vehicle meta files are missing. Proceeding without')
+    console.log('missing vehicle.meta proceeding without')
 }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,13 +123,9 @@ if (han1 && han2) {
             if(err);
         });
     
-        fs.copyFileSync(`${han1}`, `${folder}/handling.meta`, (err) => {
-            if(err) console.log(`${err} copying handling meta`);
-        })
+        fs.copyFileSync(`${han1}`, `${folder}/handling.meta`)
     
-        fs.copyFileSync(`${han1}`, `./cache/handle1.txt`, (err) => {
-            if(err) console.log(`${err} handle1`);
-        })
+        fs.copyFileSync(`${han1}`, `./cache/handle1.txt`)
     
         const contents = fs.readFileSync(`./cache/handle1.txt`).toString();
         let a = contents;
@@ -154,16 +138,12 @@ if (han1 && han2) {
         let e = contents2;
         e = e.split('<HandlingData>')[1];
         e = e.split('</HandlingData>')[0];
-        fs.writeFileSync('./cache/handle1.txt', a + e + '</HandlingData>'+ b, (err) => {
-            if(err) console.log(`${err} writing handle1`);
-        })
+        fs.writeFileSync('./cache/handle1.txt', a + e + '</HandlingData>'+ b)
         const ye = fs.readFileSync('./cache/handle1.txt').toString();
-        fs.writeFileSync('./merged/handling.meta', fs.readFileSync('./cache/handle1.txt'), (err) => {
-            if(err) console.log(`${err} writing handle1.txt`);
-        })
+        fs.writeFileSync('./merged/handling.meta', fs.readFileSync('./cache/handle1.txt'))
     }
     catch {
-        console.log('Either 1 or all of the handling files are missing. Proceeding without');
+        console.log('no handling files');
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,13 +155,9 @@ if (carv1 && carv2) {
             if(err);
         });
     
-        fs.copyFileSync(`${carv1}`, `${folder}/carvariations.meta`, (err) => {
-            if(err) console.log(`${err} carvariations`);
-        })
+        fs.copyFileSync(`${carv1}`, `${folder}/carvariations.meta`)
     
-        fs.copyFileSync(`${carv1}`, `./cache/carv1.txt`, (err) => {
-            if(err) console.log(`${err} carv1`);
-        })
+        fs.copyFileSync(`${carv1}`, `./cache/carv1.txt`)
     
         const contents = fs.readFileSync(`./cache/carv1.txt`).toString();
         let a = contents;
@@ -194,16 +170,25 @@ if (carv1 && carv2) {
         let e = contents2;
         e = e.split('<variationData>')[1];
         e = e.split('</variationData>')[0];
-        fs.writeFileSync('./cache/carv1.txt', a + e + '</variationData>'+ b, (err) => {
-            if(err) console.log(`${err} writing carv1`);
-        })
+        fs.writeFileSync('./cache/carv1.txt', a + e + '</variationData>'+ b)
         const ye = fs.readFileSync('./cache/carv1.txt').toString();
-        fs.writeFileSync('./merged/carvariations.meta', fs.readFileSync('./cache/carv1.txt'), (err) => {
-            if(err) console.log(`${err} writing carv1`);
-        })
+        fs.writeFileSync('./merged/carvariations.meta', fs.readFileSync('./cache/carv1.txt'))
     }
     catch {
-        console.log('Either 1 or all of the carvariation meta files are missing. Proceeding without')
+        try{
+            fs.readFileSync(carv1)
+            console.log('carv 1 good')
+        }
+        catch {
+            console.log('carv 1 fail')
+        }
+        try{
+            fs.readFileSync(carv2)
+            console.log('carv 2 good')
+        }
+        catch {
+            console.log('carv 2 fail')
+        }
     }
 
 
@@ -219,13 +204,9 @@ if (carc1 && carc2) {
         if(err);
     });
 
-    fs.copyFileSync(`${carc1}`, `${folder}/carcols.meta`, (err) => {
-        if(err) console.log(`${err} carcols`);
-    })
+    fs.copyFileSync(`${carc1}`, `${folder}/carcols.meta`)
 
-    fs.copyFileSync(`${carc1}`, `./cache/carc1.txt`, (err) => {
-        if(err) console.log(`${err} carc`);
-    })
+    fs.copyFileSync(`${carc1}`, `./cache/carc1.txt`)
 
     const contents = fs.readFileSync(`./cache/carc1.txt`).toString();
     let sirens = contents;
@@ -282,12 +263,8 @@ if (carc1 && carc2) {
     }
     const pre = '<?xml version="1.0" encoding="UTF-8"?>\n<CVehicleModelInfoVarGlobal>'
 
-    fs.writeFileSync('./cache/carc1.txt', pre + '<Kits>' + kits + e + '</Kits>'+ '\n\n' + '<Lights>' + lights + k + '</Lights>' + '\n\n' + '<Sirens>' + sirens + p + '</Sirens>' + '\n\n' + '</CVehicleModelInfoVarGlobal>', (err) => {
-        if(err) console.log(`${err} writing carc1`);
-    })
-    fs.writeFileSync(`${folder}/carcols.meta`, fs.readFileSync('./cache/carc1.txt'), (err) => {
-        if(err) console.log(`${err} writing carc1.txt`);
-    })
+    fs.writeFileSync('./cache/carc1.txt', pre + '<Kits>' + kits + e + '</Kits>'+ '\n\n' + '<Lights>' + lights + k + '</Lights>' + '\n\n' + '<Sirens>' + sirens + p + '</Sirens>' + '\n\n' + '</CVehicleModelInfoVarGlobal>')
+    fs.writeFileSync(`${folder}/carcols.meta`, fs.readFileSync('./cache/carc1.txt'))
     }
     catch {
         console.log('missing carcols proceeding without')
@@ -295,22 +272,20 @@ if (carc1 && carc2) {
 
 }
 
-fs.copyFileSync(`./assets/fxmanifest.lua`, `${folder}/fxmanifest.lua`, (err) => {
-    if(err) console.log(err);
-})
+fs.copyFileSync(`./assets/fxmanifest.lua`, `${folder}/fxmanifest.lua`)
 
 const del = fs.readdirSync('./cache')
 var i;
 for (i=0; i < del.length; i++) {
     fs.unlink(`./cache/${del[i]}`, (err) => {
-        if(err) console.log(`${err} unlinking`);
-    })
+        if(err) throw err;
+    });
     
 }
 sleep(1000);
 
 fs.rmdir('./cache', (err) => {
-    if(err) console.log(`${err} deleting cache folder`);
-})
+    if(err);
+});
 
-console.log('Finished, you can close this now')
+console.log('Finished')
