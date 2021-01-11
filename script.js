@@ -313,4 +313,4 @@ fs.rmdir('./cache', (err) => {
     if(err) console.log(`${err} deleting cache folder`);
 })
 
-console.log('Finished')
+console.log('Finished, you can close this now')
